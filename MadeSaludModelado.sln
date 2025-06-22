@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35506.116 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadeSaludModelado.Server", "MadeSaludModelado.Server\MadeSaludModelado.Server\MadeSaludModelado.Server.csproj", "{A10E29BC-DCF7-4730-A2A3-CFC2C85931DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadeSaludModelado.Server.Client", "MadeSaludModelado.Server\MadeSaludModelado.Server.Client\MadeSaludModelado.Server.Client.csproj", "{E418C2E5-A788-4721-BFEA-43210D74BDE9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadeSalud.Shared", "MadeSalud.Shared\MadeSalud.Shared.csproj", "{185CE122-9C02-4917-AE62-D443CEE56A2F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadeSalud.BD", "MadeSalud.BD\MadeSalud.BD.csproj", "{BBE1FC69-BA28-4553-88EE-6D031EBB1CC1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadeSalud.Repositorio", "MadeSalud.Repositorio\MadeSalud.Repositorio.csproj", "{19D40797-3EE9-4471-A753-257D0638A6A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MadeSalud.Servicio", "MadeSalud.Servicio\MadeSalud.Servicio.csproj", "{09FBC3E2-EDBA-4CDF-8EA5-2D865FE96371}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A10E29BC-DCF7-4730-A2A3-CFC2C85931DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A10E29BC-DCF7-4730-A2A3-CFC2C85931DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A10E29BC-DCF7-4730-A2A3-CFC2C85931DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A10E29BC-DCF7-4730-A2A3-CFC2C85931DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E418C2E5-A788-4721-BFEA-43210D74BDE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E418C2E5-A788-4721-BFEA-43210D74BDE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E418C2E5-A788-4721-BFEA-43210D74BDE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E418C2E5-A788-4721-BFEA-43210D74BDE9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{185CE122-9C02-4917-AE62-D443CEE56A2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{185CE122-9C02-4917-AE62-D443CEE56A2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{185CE122-9C02-4917-AE62-D443CEE56A2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{185CE122-9C02-4917-AE62-D443CEE56A2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBE1FC69-BA28-4553-88EE-6D031EBB1CC1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBE1FC69-BA28-4553-88EE-6D031EBB1CC1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBE1FC69-BA28-4553-88EE-6D031EBB1CC1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBE1FC69-BA28-4553-88EE-6D031EBB1CC1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{19D40797-3EE9-4471-A753-257D0638A6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{19D40797-3EE9-4471-A753-257D0638A6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{19D40797-3EE9-4471-A753-257D0638A6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{19D40797-3EE9-4471-A753-257D0638A6A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09FBC3E2-EDBA-4CDF-8EA5-2D865FE96371}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09FBC3E2-EDBA-4CDF-8EA5-2D865FE96371}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09FBC3E2-EDBA-4CDF-8EA5-2D865FE96371}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09FBC3E2-EDBA-4CDF-8EA5-2D865FE96371}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
