@@ -1,0 +1,101 @@
+﻿@page "/personas/crear"
+@inject IHttpServicio http
+@inject NavigationManager navHttp
+
+<h3>Agregar Persona</h3>
+
+<EditForm Model="persona" OnValidSubmit="Grabar">
+    <DataAnnotationsValidator />
+    <div class="card p-4 shadow-sm rounded-4" style="max-width: 600px;">
+        <div class="mb-3">
+            <label>Nombre</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@persona.Nombre" />
+                <ValidationMessage For="@(() => persona.Nombre)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Apellido</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@persona.Apellido" />
+                <ValidationMessage For="@(() => persona.Apellido)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>DNI</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@persona.DNI" />
+                <ValidationMessage For="@(() => persona.DNI)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Telefono</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@persona.Telefono" />
+                <ValidationMessage For="@(() =>persona.Telefono)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Direccion</label>
+            <div>
+                <InputText class="form-control" @bind-Value="@persona.Direccion" />
+                <ValidationMessage For="@(() => persona.Direccion)" />
+            </div>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Sexo</label>
+            <InputSelect @bind-Value="persona.Sexo" class="form-control">
+                <option value="">Seleccione una opción</option>
+                <option value="F">Femenino</option>
+                <option value="M">Masculino</option>
+                <option value="O">Otro</option>
+            </InputSelect>
+        </div>
+        <br />
+        <div class="form-group">
+            <label>Rol:</label>
+            <InputSelect @bind-Value="persona.Rol" class="form-control">
+                <option value="">Seleccione un rol</option>
+                <option value="Paciente">Paciente</option>
+                <option value="Medico">Medico</option>
+                <option value="Secretaria">Secretaria</option>
+            </InputSelect>
+        </div>
+        <br />
+
+        <button class="btn btn-primary" type="submit">Aceptar</button>
+        <br />
+        <button class="btn btn-primary" @onclick="Cancelar">Cancelar</button>
+    </div>
+</EditForm>
+<br />
+<p>@Mensaje</p>
+
+@code 
+{
+    private PersonaCrearDTO persona = new PersonaCrearDTO();
+    string Mensaje = "";
+
+    private async Task Grabar()
+    {
+        var httpResp = await http.Post<PersonaCrearDTO,int>("api/Persona", persona);
+        if (!httpResp.Error)
+        {
+            navHttp.NavigateTo("/personas");
+        }
+        else
+        {
+            Mensaje = httpResp.ObtenerError();
+        }
+    }
+
+    private void  Cancelar()
+    {
+        navHttp.NavigateTo("/personas");
+    }
+}

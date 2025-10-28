@@ -10,8 +10,7 @@ namespace MadeSalud.BD.DATOS.ENTITY
 {
     public class DetallePedidoLaboratorio : EntityBase
     {
-        [Required(ErrorMessage = "La cantidad es obligatoria")]
-        [MaxLength(4, ErrorMessage = "El máximo es {1} números")]
+        [Range(0, 9999)]
         public int Cantidad { get; set; }
 
         public int MedicamentoId { get; set; }
@@ -20,8 +19,5 @@ namespace MadeSalud.BD.DATOS.ENTITY
         public int PedidoLaboratorioId { get; set; }
         public PedidoLaboratorio? PedidoLaboratorio { get; set; }
 
-
-
     }
-       
 }

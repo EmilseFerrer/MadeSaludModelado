@@ -19,7 +19,7 @@ namespace MadeSaludModelado.Server.Controllers
             this.repositorio = repositorio;
         }
 
-        [HttpGet]
+        [HttpGet] //api/Persona
         public async Task<ActionResult<List<Persona>>> GetList()
         {
             var lista = await repositorio.Select();
@@ -35,7 +35,7 @@ namespace MadeSaludModelado.Server.Controllers
             return Ok(lista);
         }
 
-        [HttpGet("Id/{id:int}")]
+        [HttpGet("Id/{id:int}")] //api/Persona/Id/5
         public async Task<ActionResult<Persona>> GetById(int id)
         {
             var entidad = await repositorio.SelectById(id);
@@ -47,7 +47,7 @@ namespace MadeSaludModelado.Server.Controllers
             return Ok(entidad);
         }
 
-        [HttpGet("Dni/{dni}")]
+        [HttpGet("Dni/{dni}")] //api/Persona/Dni/12345678
         public async Task<ActionResult<Persona>> GetByDni(string dni)
         {
             var entidad = await repositorio.SelectByDni(dni);
@@ -59,8 +59,8 @@ namespace MadeSaludModelado.Server.Controllers
             return Ok(entidad);
         }
 
-        [HttpGet("ListaPersona")]
-        public async Task<ActionResult<List<Persona>>> GetListaPersona()
+        [HttpGet("ListaPersona")] //api/Persona/ListaPersona
+        public async Task<ActionResult<List<PersonaListadoDTO>>> GetListaPersona()
         {
             var lista = await repositorio.SelectListaPersona();
             if (lista == null)
@@ -74,7 +74,7 @@ namespace MadeSaludModelado.Server.Controllers
             return Ok(lista);
         }
 
-        [HttpPost]
+        [HttpPost] //api/Persona
         public async Task<ActionResult<int>> Post(PersonaCrearDTO DTO)
         {
 
@@ -104,20 +104,33 @@ namespace MadeSaludModelado.Server.Controllers
 
         }
 
-       
-
-        [HttpPut("{id:int}")]
-        public async Task<ActionResult> Put(int id, Persona DTO)
+        [HttpPut("{id:int}")] //api/Persona/5
+        public async Task<ActionResult> Put(int id, PersonaCrearDTO dto)
         {
-            var resultado = await repositorio.Update(id, DTO);
+            // Convertir el DTO a entidad
+            var entidad = new Persona
+            {
+                Id = id,
+                Nombre = dto.Nombre,
+                Apellido = dto.Apellido,
+                DNI = dto.DNI,
+                Telefono = dto.Telefono,
+                Direccion = dto.Direccion,
+                Sexo = dto.Sexo,
+                FechaNacimiento = dto.FechaNacimiento,
+                Rol = dto.Rol
+                // Agrega otros campos si existen en la entidad
+            };
+
+            var resultado = await repositorio.Update(id, entidad);
             if (!resultado)
             {
-                return BadRequest("Datos no validos");
+                return BadRequest("Datos no válidos");
             }
             return Ok($"El registro con el id: {id} fue actualizado correctamente.");
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int}")] //api/Persona/5
         public async Task<ActionResult> Delete(int id)
         {
             var resultado = await repositorio.Delete(id);

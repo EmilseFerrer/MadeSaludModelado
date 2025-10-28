@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="..\MadeSaludModelado.Server.Client\Pages\Persona\Component.razor" Link="Component.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\MadeSalud.BD\MadeSalud.BD.csproj" />
     <ProjectReference Include="..\..\MadeSalud.Repositorio\MadeSalud.Repositorio.csproj" />
     <ProjectReference Include="..\..\MadeSalud.Shared\MadeSalud.Shared.csproj" />

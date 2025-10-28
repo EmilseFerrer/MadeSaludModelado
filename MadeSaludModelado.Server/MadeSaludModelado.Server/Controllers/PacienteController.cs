@@ -22,7 +22,7 @@ namespace MadeSaludModelado.Server.Controllers
             this.repositorio = repositorio;
         }
 
-        [HttpGet]
+        [HttpGet] //api/Paciente
         public async Task<ActionResult<List<Paciente>>> GetList()
         {
             var lista = await repositorio.Select();
@@ -39,7 +39,7 @@ namespace MadeSaludModelado.Server.Controllers
         }
 
 
-        [HttpGet("Id/{id:int}")]
+        [HttpGet("Id/{id:int}")] //api/Paciente/Id/5
         public async Task<ActionResult<Paciente>> GetById(int id)
         {
             var entidad = await repositorio.SelectById(id);
@@ -54,7 +54,7 @@ namespace MadeSaludModelado.Server.Controllers
 
 
 
-        [HttpGet("ListaPaciente/{personaId:int}")]
+        [HttpGet("ListaPaciente/{personaId:int}")] //api/Paciente/ListaPaciente/5
         public async Task<ActionResult<List<PacienteListadoDTO>>> GetListaPaciente(int personaId)
         {
             var lista = await repositorio.SelectListaPaciente(personaId);
@@ -68,7 +68,7 @@ namespace MadeSaludModelado.Server.Controllers
             }
             return Ok(lista);
         }
-        [HttpPost]
+        [HttpPost] //api/Paciente
         public async Task<ActionResult<int>> Post(PacienteCrearDTO DTO)
         {
             try
@@ -92,7 +92,7 @@ namespace MadeSaludModelado.Server.Controllers
         }
 
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}")] //api/Paciente/5
         public async Task<ActionResult> Put(int id, Paciente DTO)
         {
             var resultado = await repositorio.Update(id, DTO);
@@ -103,7 +103,7 @@ namespace MadeSaludModelado.Server.Controllers
             return Ok($"El registro con el id: {id} fue actualizado correctamente.");
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int}")] //api/Paciente/5
         public async Task<ActionResult> Delete(int id)
         {
 

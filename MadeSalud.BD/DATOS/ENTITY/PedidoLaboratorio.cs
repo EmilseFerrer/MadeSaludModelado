@@ -12,8 +12,9 @@ namespace MadeSalud.BD.DATOS.ENTITY
     {
         public int SecretariaId { get; set; }
         public Secretaria? Secretaria { get; set; }
-        public DateTime Fecha { get; set; }
 
-       
+        [Required]
+        public DateTime Fecha { get; set; } = DateTime.Now;
+
     }
 }

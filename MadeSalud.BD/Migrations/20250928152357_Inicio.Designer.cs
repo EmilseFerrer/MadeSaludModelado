@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MadeSalud.BD.Migrations
 {
     [DbContext(typeof(AppDBContext))]
-    [Migration("20250915044638_Inicio")]
+    [Migration("20250928152357_Inicio")]
     partial class Inicio
     {
         /// <inheritdoc />
@@ -44,10 +44,8 @@ namespace MadeSalud.BD.Migrations
                     b.Property<DateTime>("FechaConsulta")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FrecuenciaCardiaca")
-                        .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                    b.Property<int>("FrecuenciaCardiaca")
+                        .HasColumnType("int");
 
                     b.Property<int>("HistoriaClinicaId")
                         .HasColumnType("int");
@@ -60,16 +58,12 @@ namespace MadeSalud.BD.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<decimal>("PesoCorporal")
-                        .HasMaxLength(6)
-                        .HasColumnType("decimal(18,2)");
+                        .HasColumnType("decimal(5,2)");
 
                     b.Property<string>("PresionArterial")
                         .IsRequired()
-                        .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
-
-                    b.Property<int>("RecetaId")
-                        .HasColumnType("int");
+                        .HasMaxLength(7)
+                        .HasColumnType("nvarchar(7)");
 
                     b.Property<int>("SecretariaId")
                         .HasColumnType("int");
@@ -82,9 +76,6 @@ namespace MadeSalud.BD.Migrations
                     b.HasIndex("HistoriaClinicaId");
 
                     b.HasIndex("MedicoId");
-
-                    b.HasIndex("RecetaId")
-                        .IsUnique();
 
                     b.HasIndex("SecretariaId");
 
@@ -102,7 +93,6 @@ namespace MadeSalud.BD.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Cantidad")
-                        .HasMaxLength(4)
                         .HasColumnType("int");
 
                     b.Property<int>("EstadoRegistro")
@@ -170,10 +160,6 @@ namespace MadeSalud.BD.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("Codigo")
-                        .HasMaxLength(6)
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ConsultaMedicaId")
                         .HasColumnType("int");
 
                     b.Property<int>("EstadoRegistro")
@@ -181,7 +167,8 @@ namespace MadeSalud.BD.Migrations
 
                     b.Property<string>("NombreFormula")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(120)
+                        .HasColumnType("nvarchar(120)");
 
                     b.Property<string>("Observacion")
                         .IsRequired()
@@ -189,7 +176,8 @@ namespace MadeSalud.BD.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConsultaMedicaId");
+                    b.HasIndex(new[] { "Codigo" }, "CODMED_UQ")
+                        .IsUnique();
 
                     b.ToTable("Medicamentos");
                 });
@@ -357,7 +345,7 @@ namespace MadeSalud.BD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("ConsultaId")
+                    b.Property<int>("ConsultaMedicaId")
                         .HasColumnType("int");
 
                     b.Property<string>("Dosis")
@@ -382,6 +370,8 @@ namespace MadeSalud.BD.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ConsultaMedicaId");
+
                     b.HasIndex("MedicamentoId");
 
                     b.ToTable("Recetas");
@@ -400,7 +390,8 @@ namespace MadeSalud.BD.Migrations
 
                     b.Property<string>("NLegajo")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasMaxLength(20)
+                        .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("Observacion")
                         .IsRequired()
@@ -463,12 +454,6 @@ namespace MadeSalud.BD.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("MadeSalud.BD.DATOS.ENTITY.Receta", "Receta")
-                        .WithOne("ConsultaMedica")
-                        .HasForeignKey("MadeSalud.BD.DATOS.ENTITY.ConsultaMedica", "RecetaId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("MadeSalud.BD.DATOS.ENTITY.Secretaria", "Secretaria")
                         .WithMany()
                         .HasForeignKey("SecretariaId")
@@ -482,8 +467,6 @@ namespace MadeSalud.BD.Migrations
                     b.Navigation("HistoriaClinica");
 
                     b.Navigation("Medico");
-
-                    b.Navigation("Receta");
 
                     b.Navigation("Secretaria");
                 });
@@ -510,19 +493,12 @@ namespace MadeSalud.BD.Migrations
             modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.HistoriaClinica", b =>
                 {
                     b.HasOne("MadeSalud.BD.DATOS.ENTITY.Paciente", "Paciente")
-                        .WithMany()
+                        .WithMany("HistoriaClinicas")
                         .HasForeignKey("PacienteId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Paciente");
-                });
-
-            modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.Medicamento", b =>
-                {
-                    b.HasOne("MadeSalud.BD.DATOS.ENTITY.ConsultaMedica", null)
-                        .WithMany("Medicamentos")
-                        .HasForeignKey("ConsultaMedicaId");
                 });
 
             modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.Medico", b =>
@@ -560,11 +536,19 @@ namespace MadeSalud.BD.Migrations
 
             modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.Receta", b =>
                 {
+                    b.HasOne("MadeSalud.BD.DATOS.ENTITY.ConsultaMedica", "ConsultaMedica")
+                        .WithMany("Recetas")
+                        .HasForeignKey("ConsultaMedicaId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("MadeSalud.BD.DATOS.ENTITY.Medicamento", "Medicamento")
                         .WithMany()
                         .HasForeignKey("MedicamentoId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.Navigation("ConsultaMedica");
 
                     b.Navigation("Medicamento");
                 });
@@ -601,12 +585,12 @@ namespace MadeSalud.BD.Migrations
 
             modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.ConsultaMedica", b =>
                 {
-                    b.Navigation("Medicamentos");
+                    b.Navigation("Recetas");
                 });
 
-            modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.Receta", b =>
+            modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.Paciente", b =>
                 {
-                    b.Navigation("ConsultaMedica");
+                    b.Navigation("HistoriaClinicas");
                 });
 
             modelBuilder.Entity("MadeSalud.BD.DATOS.ENTITY.Turno", b =>

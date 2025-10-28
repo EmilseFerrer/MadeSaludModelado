@@ -1,4 +1,4 @@
-﻿@page "/"
+﻿@* @page "/"
 
 <PageTitle>Home</PageTitle>
 
@@ -6,4 +6,106 @@
 
 Medicina Alternativa de Excelencia
 <br />
-“Bienvenido al sistema de gestión de turnos médicos. Seleccione una opción para comenzar.”
+“Bienvenido al sistema de gestión de turnos médicos. Seleccione una opción para comenzar.” *@
+
+@* @page "/"
+
+<div class="hero container-xxl py-5">
+    <div class="row align-items-center g-4">
+        <div class="col-md-3 text-center">
+            <img src="img/Made Salud.jpg" alt="Made Salud" class="hero-logo float-slow" />
+        </div>
+
+        <div class="col-md-9">
+            <h1 class="display-5 fw-bold mb-2">Made Salud</h1>
+            <p class="lead text-secondary mb-4">
+                Medicina Alternativa de Excelencia. <br />
+                Bienvenido al sistema de gestión de turnos médicos.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+                <a class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2 shadow-sm"
+                   href="/personas/crear">
+                    <i class="bi bi-person-plus"></i>
+                    Crear persona
+                </a>
+
+                <a class="btn btn-outline-primary btn-lg d-inline-flex align-items-center gap-2 shadow-sm"
+                   href="/turnos/crear">
+                    <i class="bi bi-calendar-plus"></i>
+                    Cargar turnos
+                </a>
+
+                <a class="btn btn-outline-secondary d-inline-flex align-items-center gap-2"
+                   href="/personas">
+                    <i class="bi bi-people"></i>
+                    Ver personas
+                </a>
+            </div>
+        </div>
+    </div>
+</div> *@
+
+@page "/"
+
+<div class="container-xxl py-5">
+    <div class="hero row align-items-center g-4">
+        <!-- Logo -->
+        <div class="col-md-3 text-center">
+            <!-- Si el nombre con espacio te da problemas, renombrá el archivo a made-salud.jpg y cambia la ruta -->
+            <img src="Img/Made Salud.jpg" alt="Made Salud" class="hero-logo" />
+        </div>
+
+        <!-- Título + descripción + acciones -->
+        <div class="col-md-9">
+            <h1 class="display-5 fw-bold mb-2">Made Salud</h1>
+            <p class="lead text-secondary mb-4">
+                Medicina Alternativa de Excelencia.
+                <br />
+                Bienvenido al sistema de gestión de turnos médicos.
+            </p>
+
+            <div class="d-flex flex-wrap gap-3">
+                <a class="btn btn-primary btn-lg d-inline-flex align-items-center gap-2 shadow-sm"
+                   href="/personas/crear">
+                    <i class="bi bi-person-plus"></i>
+                    Crear persona
+                </a>
+
+                <a class="btn btn-outline-primary btn-lg d-inline-flex align-items-center gap-2 shadow-sm"
+                   href="/turnos/crear">
+                    <i class="bi bi-calendar-plus"></i>
+                    Cargar turnos
+                </a>
+
+                
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container-xxl pb-5">
+    <div class="row g-4">
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-person-gear me-2"></i>Gestión de Personas</h5>
+                    <p class="text-secondary">Alta, edición y listado de profesionales, pacientes y secretaría.</p>
+                    <a href="/personas" class="btn btn-outline-primary">
+                        <i class="bi bi-people"></i> Abrir listado
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title"><i class="bi bi-calendar2-week me-2"></i>Turnos</h5>
+                    <p class="text-secondary">Creá y administrá turnos de forma rápida.</p>
+                    <a href="/turnos/crear" class="btn btn-outline-primary">
+                        <i class="bi bi-calendar-plus"></i> Cargar turnos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

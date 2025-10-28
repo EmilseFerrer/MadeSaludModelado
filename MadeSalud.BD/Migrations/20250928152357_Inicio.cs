@@ -12,6 +12,22 @@ namespace MadeSalud.BD.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Medicamentos",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Codigo = table.Column<int>(type: "int", nullable: false),
+                    NombreFormula = table.Column<string>(type: "nvarchar(120)", maxLength: 120, nullable: false),
+                    EstadoRegistro = table.Column<int>(type: "int", nullable: false),
+                    Observacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Medicamentos", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Personas",
                 columns: table => new
                 {
@@ -84,7 +100,7 @@ namespace MadeSalud.BD.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    NLegajo = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NLegajo = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
                     PersonaId = table.Column<int>(type: "int", nullable: false),
                     EstadoRegistro = table.Column<int>(type: "int", nullable: false),
                     Observacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -183,12 +199,11 @@ namespace MadeSalud.BD.Migrations
                     HistoriaClinicaId = table.Column<int>(type: "int", nullable: false),
                     MedicoId = table.Column<int>(type: "int", nullable: false),
                     SecretariaId = table.Column<int>(type: "int", nullable: false),
-                    RecetaId = table.Column<int>(type: "int", nullable: false),
                     FechaConsulta = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Diagnostico = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    FrecuenciaCardiaca = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PresionArterial = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: false),
-                    PesoCorporal = table.Column<decimal>(type: "decimal(18,2)", maxLength: 6, nullable: false),
+                    FrecuenciaCardiaca = table.Column<int>(type: "int", nullable: false),
+                    PresionArterial = table.Column<string>(type: "nvarchar(7)", maxLength: 7, nullable: false),
+                    PesoCorporal = table.Column<decimal>(type: "decimal(5,2)", nullable: false),
                     TurnoId = table.Column<int>(type: "int", nullable: true),
                     EstadoRegistro = table.Column<int>(type: "int", nullable: false),
                     Observacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -222,34 +237,12 @@ namespace MadeSalud.BD.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Medicamentos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Codigo = table.Column<int>(type: "int", maxLength: 6, nullable: false),
-                    NombreFormula = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConsultaMedicaId = table.Column<int>(type: "int", nullable: true),
-                    EstadoRegistro = table.Column<int>(type: "int", nullable: false),
-                    Observacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Medicamentos", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Medicamentos_ConsultasMedicas_ConsultaMedicaId",
-                        column: x => x.ConsultaMedicaId,
-                        principalTable: "ConsultasMedicas",
-                        principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "DetallesPedidosLaboratorio",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Cantidad = table.Column<int>(type: "int", maxLength: 4, nullable: false),
+                    Cantidad = table.Column<int>(type: "int", nullable: false),
                     MedicamentoId = table.Column<int>(type: "int", nullable: false),
                     PedidoLaboratorioId = table.Column<int>(type: "int", nullable: false),
                     EstadoRegistro = table.Column<int>(type: "int", nullable: false),
@@ -280,7 +273,7 @@ namespace MadeSalud.BD.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Dosis = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
                     Frecuencia = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: false),
-                    ConsultaId = table.Column<int>(type: "int", nullable: false),
+                    ConsultaMedicaId = table.Column<int>(type: "int", nullable: false),
                     MedicamentoId = table.Column<int>(type: "int", nullable: false),
                     EstadoRegistro = table.Column<int>(type: "int", nullable: false),
                     Observacion = table.Column<string>(type: "nvarchar(max)", nullable: false)
@@ -288,6 +281,12 @@ namespace MadeSalud.BD.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Recetas", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Recetas_ConsultasMedicas_ConsultaMedicaId",
+                        column: x => x.ConsultaMedicaId,
+                        principalTable: "ConsultasMedicas",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Recetas_Medicamentos_MedicamentoId",
                         column: x => x.MedicamentoId,
@@ -305,12 +304,6 @@ namespace MadeSalud.BD.Migrations
                 name: "IX_ConsultasMedicas_MedicoId",
                 table: "ConsultasMedicas",
                 column: "MedicoId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ConsultasMedicas_RecetaId",
-                table: "ConsultasMedicas",
-                column: "RecetaId",
-                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ConsultasMedicas_SecretariaId",
@@ -344,9 +337,10 @@ namespace MadeSalud.BD.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Medicamentos_ConsultaMedicaId",
+                name: "CODMED_UQ",
                 table: "Medicamentos",
-                column: "ConsultaMedicaId");
+                column: "Codigo",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Medicos_PersonaId",
@@ -376,6 +370,11 @@ namespace MadeSalud.BD.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Recetas_ConsultaMedicaId",
+                table: "Recetas",
+                column: "ConsultaMedicaId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Recetas_MedicamentoId",
                 table: "Recetas",
                 column: "MedicamentoId");
@@ -394,61 +393,37 @@ namespace MadeSalud.BD.Migrations
                 name: "IX_Turnos_PacienteId",
                 table: "Turnos",
                 column: "PacienteId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_ConsultasMedicas_Recetas_RecetaId",
-                table: "ConsultasMedicas",
-                column: "RecetaId",
-                principalTable: "Recetas",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Restrict);
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_ConsultasMedicas_HistoriasClinicas_HistoriaClinicaId",
-                table: "ConsultasMedicas");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ConsultasMedicas_Medicos_MedicoId",
-                table: "ConsultasMedicas");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Turnos_Medicos_MedicoId",
-                table: "Turnos");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_ConsultasMedicas_Recetas_RecetaId",
-                table: "ConsultasMedicas");
-
             migrationBuilder.DropTable(
                 name: "DetallesPedidosLaboratorio");
-
-            migrationBuilder.DropTable(
-                name: "PedidosLaboratorio");
-
-            migrationBuilder.DropTable(
-                name: "HistoriasClinicas");
-
-            migrationBuilder.DropTable(
-                name: "Medicos");
 
             migrationBuilder.DropTable(
                 name: "Recetas");
 
             migrationBuilder.DropTable(
-                name: "Medicamentos");
+                name: "PedidosLaboratorio");
 
             migrationBuilder.DropTable(
                 name: "ConsultasMedicas");
+
+            migrationBuilder.DropTable(
+                name: "Medicamentos");
+
+            migrationBuilder.DropTable(
+                name: "HistoriasClinicas");
 
             migrationBuilder.DropTable(
                 name: "Secretarias");
 
             migrationBuilder.DropTable(
                 name: "Turnos");
+
+            migrationBuilder.DropTable(
+                name: "Medicos");
 
             migrationBuilder.DropTable(
                 name: "Pacientes");

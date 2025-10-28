@@ -17,7 +17,7 @@ namespace MadeSalud.BD.DATOS.ENTITY
         [MaxLength(100)]
         public required string Frecuencia { get; set; }
 
-        public int ConsultaId { get; set; }
+        public int ConsultaMedicaId { get; set; }
         public  ConsultaMedica? ConsultaMedica { get; set; }
 
         public int MedicamentoId { get; set; }

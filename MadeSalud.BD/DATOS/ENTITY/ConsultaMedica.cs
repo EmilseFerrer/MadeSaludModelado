@@ -19,8 +19,7 @@ namespace MadeSalud.BD.DATOS.ENTITY
         public int SecretariaId { get; set; }
         public Secretaria? Secretaria { get; set; }
 
-        public int RecetaId { get; set; }
-        public Receta? Receta { get; set; }
+       
         
         [Required]
         public DateTime FechaConsulta { get; set; }= DateTime.Now;
@@ -29,19 +28,18 @@ namespace MadeSalud.BD.DATOS.ENTITY
         [MaxLength(100, ErrorMessage = "El diagnóstico no puede exceder los {1} caracteres.")]
         public string Diagnostico { get; set; } = string.Empty;
 
-        [Required(ErrorMessage = "Este Campo es obligatorio")]
-        [MaxLength(20, ErrorMessage = "No puede superar los {1} caracteres")]
-        public string FrecuenciaCardiaca { get; set; } = string.Empty;
+        [Range(30, 250)]
+        public int FrecuenciaCardiaca { get; set; }
 
-        [Required(ErrorMessage = "Este Campo es obligatorio")]
-        [MaxLength(20, ErrorMessage = "No puede superar los {1} caracteres")]
-        public string PresionArterial { get; set; }= string.Empty;
+        [RegularExpression(@"^\d{2,3}/\d{2,3}$")]
+        [MaxLength(7)]
+        public string PresionArterial { get; set; } = "120/80";
+        
+        [Column(TypeName = "decimal(5,2)")]
+        [Range(0, 999.99)]
+        public decimal PesoCorporal { get; set; }
 
-        [Required(ErrorMessage = "Este Campo es obligatorio")]
-        [MaxLength(6, ErrorMessage = "No puede superar los {1} caracteres")]
-        public decimal PesoCorporal { get; set; } = 0; 
-
-        public List<Medicamento> Medicamentos { get; set; } = new List<Medicamento>();
+        public ICollection<Receta> Recetas { get; set; } = new List<Receta>();
 
     }
 }

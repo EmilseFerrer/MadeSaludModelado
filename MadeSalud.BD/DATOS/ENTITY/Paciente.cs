@@ -21,9 +21,6 @@ namespace MadeSalud.BD.DATOS.ENTITY
         public int PersonaId { get; set; }
         public Persona? Personas { get; set; }
 
-       
-
-
-
+        public List<HistoriaClinica> HistoriaClinicas { get; set; } = new();
     }
 }

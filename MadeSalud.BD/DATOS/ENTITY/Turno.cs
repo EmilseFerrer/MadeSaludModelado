@@ -11,8 +11,8 @@ namespace MadeSalud.BD.DATOS.ENTITY
     public class Turno: EntityBase
     {
             [Required(ErrorMessage = "La fecha y hora del turno es obligatoria")]
-            public DateTime FechayHora { get; set; }
-           
+            public DateTime FechayHora { get; set; } = DateTime.Now;
+
             public int PacienteId { get; set; }
 
             public int MedicoId { get; set; }

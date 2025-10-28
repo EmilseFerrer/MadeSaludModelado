@@ -24,7 +24,7 @@ namespace MadeSaludModelado.Server.Controllers
        
             
 
-        [HttpGet]
+        [HttpGet] //api/Medico
         public async Task<ActionResult<List<Medico>>> GetList()
         {
             var lista = await repositorio.Select();
@@ -41,7 +41,7 @@ namespace MadeSaludModelado.Server.Controllers
         }
 
 
-        [HttpGet("Id/{id:int}")]
+        [HttpGet("Id/{id:int}")] //api/Medico/Id/5
         public async Task<ActionResult<Medico>> GetById(int id)
         {
             var entidad = await repositorio.SelectById(id);
@@ -54,7 +54,7 @@ namespace MadeSaludModelado.Server.Controllers
 
         }
 
-        [HttpGet("NMatricula/{cod}")]
+        [HttpGet("NMatricula/{cod}")] //api/Medico/NMatricula/ABC123
         public async Task<ActionResult<Medico>> GetByMatricula(string cod)
         {
             var entidad = await repositorio.SelectByMatricula(cod);
@@ -69,7 +69,7 @@ namespace MadeSaludModelado.Server.Controllers
 
 
 
-        [HttpGet("ListaMedico/{personaId:int}")]
+        [HttpGet("ListaMedico/{personaId:int}")] //api/Medico/ListaMedico/5
         public async Task<ActionResult<List<MedicoListadoDTO>>> GetListaMedico(int personaId)
         {
             var lista = await repositorio.SelectListaMedico(personaId);
@@ -84,7 +84,7 @@ namespace MadeSaludModelado.Server.Controllers
             return Ok(lista);
         }
 
-        [HttpPost]
+        [HttpPost] //api/Medico
         public async Task<ActionResult<int>> Post(MedicoCrearDTO DTO)
         {
             try
@@ -104,7 +104,7 @@ namespace MadeSaludModelado.Server.Controllers
         }
 
 
-        [HttpPut("{id:int}")]
+        [HttpPut("{id:int}")] //api/Medico/5
         public async Task<ActionResult> Put(int id, Medico DTO)
         {
             var resultado = await repositorio.Update(id, DTO);
@@ -115,7 +115,7 @@ namespace MadeSaludModelado.Server.Controllers
             return Ok($"El registro con el id: {id} fue actualizado correctamente.");
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("{id:int}")] //api/Medico/5
         public async Task<ActionResult> Delete(int id)
         {
 

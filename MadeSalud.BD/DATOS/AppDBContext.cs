@@ -39,10 +39,18 @@ namespace MadeSalud.BD.DATOS
         {
         }
 
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);//configurar entidades
+
+            // Relación uno a muchos entre ConsultaMedica y Receta
+            modelBuilder.Entity<Receta>()
+                .HasOne(r => r.ConsultaMedica)
+                .WithMany(cm => cm.Recetas)
+                .HasForeignKey(r => r.ConsultaMedicaId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             var cascadeFKs = modelBuilder.Model
                .G­etEntityTypes()
@@ -52,8 +60,8 @@ namespace MadeSalud.BD.DATOS
             {
                 fk.DeleteBehavior = DeleteBehavior.Restr­ict;
             }
+
         }
-
-
+        
     }
 }

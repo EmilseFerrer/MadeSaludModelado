@@ -10,7 +10,7 @@ namespace MadeSalud.BD.DATOS.ENTITY
 {
     public class Secretaria: EntityBase
     {
-
+        [Required, MaxLength(20)]
         public string NLegajo { get; set; }= string.Empty;
 
         public int PersonaId { get; set; }

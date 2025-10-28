@@ -11,38 +11,39 @@ namespace MadeSalud.Shared.DTO
     public class PersonaCrearDTO
     {
 
-        public int Id { get; set; }
+
 
         [MaxLength(20, ErrorMessage = "Maximo {1} caracteres")]
         [Required(ErrorMessage = "El Nombre es obligatorio")]
-        public required string Nombre { get; set; }
+        public string Nombre { get; set; } = "";
 
         [MaxLength(20, ErrorMessage = "Máximo {1} caracteres")]
         [Required(ErrorMessage = "El Apellido es obligatorio")]
-        public required string Apellido { get; set; }
+        public string Apellido { get; set; } = "";
 
         [MaxLength(8, ErrorMessage = "Máximo {1} caracteres")]
         [MinLength(7, ErrorMessage = "Mínimo {1} caracteres")]
         [Required(ErrorMessage = "El DNI es obligatorio")]
         //[RegularExpression(@"^\d{7,8}$", ErrorMessage = "El DNI debe contener solo números y tener 7 u 8 dígitos.")]
-        public required string DNI { get; set; }= string.Empty;
+        public string DNI { get; set; }= string.Empty;
 
         [MaxLength(10, ErrorMessage = "Máximo {1} caracteres")]
         [Required(ErrorMessage = "El Teléfono es obligatorio")]
-        public required string Telefono { get; set; }
+        public string Telefono { get; set; } = "";
 
         [MaxLength(30, ErrorMessage = "Máximo {1} caracteres")]
         [Required(ErrorMessage = "La Dirección es obligatoria")]
-        public required string Direccion { get; set; }
+        public string Direccion { get; set; } = "";
 
         [MaxLength(1, ErrorMessage = "Máximo {1} caracter")]
         [Required(ErrorMessage = "El Sexo es obligatorio.")]
-        [RegularExpression("^[FM]$", ErrorMessage = "El sexo debe ser 'F' (Femenino) o 'M' (Masculino).")]
-        public required string Sexo { get; set; }
+        [RegularExpression("^[FMO]$", ErrorMessage = "El sexo debe ser 'F' (Femenino)," +
+                                        "'M' (Masculino),'O' (Otro).")]
+        public string Sexo { get; set; } = "";
 
 
         [Required(ErrorMessage = "La fecha de nacimiento es obligatoria.")]
-        public DateTime? FechaNacimiento { get; set; }
+        public DateTime FechaNacimiento { get; set; }
 
 
         [Required(ErrorMessage = "El ROL es obligatorio")]

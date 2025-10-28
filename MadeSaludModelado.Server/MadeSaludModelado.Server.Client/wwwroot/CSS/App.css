@@ -1,0 +1,47 @@
+﻿/* --- Estilos generales Made Salud --- */
+
+/* Fondo suave del home */
+.hero {
+    background: radial-gradient(1200px 600px at 0% 0%, #f5f9ff 0%, #ffffff 60%);
+    border-radius: 1rem;
+    padding-left: clamp(1rem, 3vw, 2rem);
+    padding-right: clamp(1rem, 3vw, 2rem);
+}
+
+/* Logo con animación flotante */
+.hero-logo {
+    width: clamp(120px, 12vw, 160px);
+    border-radius: 0.5rem;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+    animation: float 5s ease-in-out infinite;
+}
+
+.sidebar {
+    background-color: #00a8cc !important; /* celeste Made Salud */
+    color: white !important;
+    width: 250px;
+    min-height: 100vh;
+    padding: 1rem;
+}
+
+
+@keyframes float {
+    0% {
+        transform: translateY(0px);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+
+    100% {
+        transform: translateY(0px);
+    }
+}
+
+/* Botones */
+.btn-lg {
+    border-radius: 1rem;
+    padding-inline: 1.25rem;
+    padding-block: .7rem;
+}

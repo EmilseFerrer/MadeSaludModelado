@@ -1,6 +1,7 @@
 using MadeSalud.BD.DATOS;
 using MadeSalud.Repositorio.IRepositorios;
 using MadeSalud.Repositorio.Repositorios;
+using MadeSalud.Servicio.ServiciosHttp;
 using MadeSaludModelado.Server.Client.Pages;
 using MadeSaludModelado.Server.Components;
 using Microsoft.EntityFrameworkCore;
@@ -10,8 +11,14 @@ using System;
 
 //CONSTRUCTOR DE LA APLICACION
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddScoped(sp => new HttpClient
+{
+    BaseAddress = new Uri("https://localhost:7164/")
+});
 
 #region construccion 
+builder.Services.AddScoped<IHttpServicio, HttpServicio>();
+
 
 
 builder.Services.AddControllers();
@@ -53,6 +60,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
 
+builder.Services.AddServerSideBlazor()
+    .AddCircuitOptions(options => { options.DetailedErrors = true; });
 var app = builder.Build();
 
 #endregion
